@@ -1,4 +1,4 @@
-(defun solve-puzzle ()
+(defun solve-part1 ()
   (with-temp-buffer
     (insert-file-contents "input.txt")
     (goto-char (point-min))
@@ -28,5 +28,5 @@
       (setq list (sort list '>))
       (apply '+ (butlast list (- (length list) 3))))))
 
-(message "%d" (solve-puzzle))
+;(message "%d" (solve-part1))
 (message "%d" (solve-part2))

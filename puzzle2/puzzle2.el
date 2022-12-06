@@ -43,5 +43,5 @@
               (forward-line)))))
       sum)))
 
-(message "%s" (solve-part1))
+; (message "%s" (solve-part1))
 (message "%s" (solve-part2))

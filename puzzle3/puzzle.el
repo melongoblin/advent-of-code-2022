@@ -45,5 +45,5 @@
                     (setq sum (+ sum (convert-char-score char)))))
               (forward-line)))))
       sum)))
-(message "%d" (solve-part1))
+; (message "%d" (solve-part1))
 (message "%d" (solve-part2))
