@@ -5,28 +5,11 @@
     (setcar (nthcdr (- n 1) output) value)
     output))
 
-(defun first-n-elements (list n)
-  (butlast list (- (length list) n)))
-
-(defun apply-move (move state &optional part-two)
-  (let ((number-of-elements (car move))
-        (from (nth 1 move))
-        (to (nth 2 move)))
-    (let ((from-list (nth (- from 1) state))
-          (to-list (nth (- to 1) state)))
-      (let ((elements-to-be-added (first-n-elements (reverse from-list) number-of-elements)))
-        (let ((new-target (if (part-two)
-                              (append to-list (reverse elements-to-be-added))
-                            (append to-list elements-to-be-added)))
-              (new-source (butlast from-list number-of-elements)))
-          (setq state (set-nth (set-nth state from new-source) to new-target)))))
-    state))
-
 (defun debug-print (thing)
  (with-current-buffer "*scratch*"
    (insert (format "%s\n" thing))))
 
-(defun solve-part1 ()
+(defun solve-puzzle (&optional part-two)
   (with-temp-buffer
     (insert-file-contents "input.txt")
     (goto-char (point-min))
@@ -70,7 +53,9 @@
                        (to-state (nth (- to 1) state)))
                   (let ((elements (butlast (reverse from-state)
                                            (- (length from-state) number-crates))))
-                    (let ((new-to (append to-state elements))
+                    (let ((new-to (if part-two
+                                      (append to-state (reverse elements))
+                                    (append to-state elements)))
                           (new-from (butlast from-state number-crates)))
                       (setq state (set-nth (set-nth state from new-from) to new-to))))))))
           (let ((answer ()))
@@ -79,4 +64,4 @@
             (string-join (reverse answer))))))))
 
 
-(message "%s" (solve-part1))
+(message "%s" (solve-puzzle 1))
