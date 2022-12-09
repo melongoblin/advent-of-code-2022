@@ -3,11 +3,11 @@
   (with-current-buffer "*scratch*"
     (insert (format "%s\n" thing))))
 
-(defun group-unique (collection)
+(defun group-unique-p (collection)
   ; (debug-print collection)
   (or (null collection)
       (and (not (member (car collection) (cdr collection)))
-           (group-unique (cdr collection)))))
+           (group-unique-p (cdr collection)))))
 
 (defun solve-puzzle (file &optional part-two)
   (with-temp-buffer
@@ -21,7 +21,7 @@
       (while (not (eobp))
         (push (thing-at-point 'char) collected-characters)
         (if (= (length collected-characters) group-length)
-            (if (group-unique collected-characters)
+            (if (group-unique-p collected-characters)
                 (setq found-point (point))
               (setq collected-characters (reverse (cdr (reverse collected-characters))))))
         (forward-char))
