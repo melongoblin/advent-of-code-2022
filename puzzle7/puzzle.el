@@ -1,4 +1,5 @@
 ;;; puzzle.el --- Description -*- lexical-binding: t; -*-
+(require 'map)
 
 (defun debug-print (thing)
   (with-current-buffer "*scratch*"
@@ -63,12 +64,13 @@
             total-sizes)
         (let* ((root-dir (alist-get "/" computed-dirs nil nil 'equal))
                (total-space 70000000)
-               (needed-space (- total-space root-dir))
+               (free-space (- total-space root-dir))
+               (needed-space (- 30000000 free-space))
                (sizes ()))
+          (debug-print needed-space)
           (dolist (dir computed-dirs)
             (if (>= (cdr dir) needed-space)
-                (if (not (string= (car dir) "/"))
-                    (push (cdr dir) sizes))))
+                (push (cdr dir) sizes)))
           (car (last (sort sizes '>))))))))
 
 (message "%s" (solve-puzzle "input.txt" t))
