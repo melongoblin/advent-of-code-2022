@@ -1,4 +1,5 @@
 ;;; puzzle5.el --- Description -*- lexical-binding: t; -*-
+(require 'subr-x)
 
 (defun set-nth (list n value)
   (let ((output (copy-tree list)))
