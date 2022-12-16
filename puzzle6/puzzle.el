@@ -23,8 +23,9 @@
         (if (= (length collected-characters) group-length)
             (if (group-unique-p collected-characters)
                 (setq found-point (point))
-              (setq collected-characters (reverse (cdr (reverse collected-characters))))))
-        (forward-char))
+              (setq collected-characters (butlast collected-characters 1))))
+        (forward-char)
+        (debug-print collected-characters))
       found-point)))
 
-(message "%d" (solve-puzzle "input.txt" t))
+(message "%d" (solve-puzzle "input.txt"))
